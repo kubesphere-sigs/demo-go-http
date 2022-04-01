@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: go-httpserver
+  name: go-httpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-httpserver
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: go-httpserver
+    spec:
+      containers:
+      - image: surenpi/test:11d2b54
+        name: test
+        ports:
+        - containerPort: 9090
+        resources: {}
+status: {}
