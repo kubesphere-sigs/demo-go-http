@@ -11,13 +11,13 @@ import (
 	"time"
 )
 
-func main()  {
+func main() {
 	sm := http.NewServeMux()
 	sm.Handle("/", &handler.HelloWorld{})
 	sm.Handle("/version", &handler.Version{})
 
 	svr := http.Server{
-		Addr: ":80",
+		Addr:    ":9090",
 		Handler: sm,
 	}
 
@@ -32,9 +32,9 @@ func main()  {
 	signal.Notify(sigChain, os.Interrupt)
 	signal.Notify(sigChain, os.Kill)
 
-	sig := <- sigChain
+	sig := <-sigChain
 	fmt.Println("going to shutdown", sig)
-	tc, _ := context.WithTimeout(context.Background(), 30 * time.Second)
+	tc, _ := context.WithTimeout(context.Background(), 30*time.Second)
 
 	if err := svr.Shutdown(tc); err != nil {
 		log.Fatalf("cannot shutdown http server, %v\n", err)
