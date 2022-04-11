@@ -19,7 +19,7 @@ pipeline {
                 container('base') {
                     sh '''
                         echo $TAGNAME
-                        docker build . -t surenpi/test:$TAGNAME
+                        docker build . -t docker.io/surenpi/test:$TAGNAME
                     '''
                 }
             }
@@ -28,10 +28,10 @@ pipeline {
         stage('Push Image') {
             steps {
                 container('base') {
-                    withCredentials([usernamePassword(credentialsId : 'github' ,passwordVariable : 'PASS' ,usernameVariable : 'USER' ,)]) {
+                    withCredentials([usernamePassword(credentialsId : 'dockerhub' ,passwordVariable : 'PASS' ,usernameVariable : 'USER' ,)]) {
                         sh '''
-                            docker login -u$USER -p$PASS
-                            docker push surenpi/test:$TAGNAME
+                            docker login -u$USER -p$PASS docker.io
+                            docker push docker.io/surenpi/test:$TAGNAME
                         '''
                     }
                 }
