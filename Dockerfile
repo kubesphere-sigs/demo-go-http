@@ -11,4 +11,5 @@ FROM alpine
 
 EXPOSE 9090
 COPY --from=builder /workspace/server /server
+USER 65532:65532
 CMD ["/server"]
