@@ -12,6 +12,6 @@ FROM alpine
 EXPOSE 9090
 COPY --from=builder /workspace/server /server
 RUN addgroup -g 65532 -S appgroup && \
-    adduser -u 65532 -S appuser -G appgroup
+    adduser -u 65532 -S -D -H -G appgroup appuser
 USER 65532:65532
 CMD ["/server"]
